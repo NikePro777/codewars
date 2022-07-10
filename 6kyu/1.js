@@ -24,11 +24,11 @@ function incrementString(strng) {
       number = Number(strng.slice(-k));
       return `${strng.slice(0, -k)}${++number}`;
     } else {
-      console.log(k);
-      number = Number(strng.slice(-j));
-      if (strng[strng.length - 1] == 0) {
-        return `${strng.slice(0, -1)}1`;
-      } else return `${strng.slice(0, -k)}${"0".repeat(k - j)}${++number}`;
+      number = strng.slice(-k);
+      let numberLength = number.length;
+      number = Number(number) + 1;
+      let digit = "0".repeat(numberLength - number.toString().length);
+      return `${strng.slice(0, -k)}${digit}${number}`;
     }
   } else {
     if (Number(strng[i]) === 0) {
@@ -41,3 +41,21 @@ function incrementString(strng) {
 }
 
 console.log(incrementString("foobar099"));
+
+// best
+// function incrementString(input) {
+//   if (isNaN(parseInt(input[input.length - 1]))) return input + "1";
+//   return input.replace(/(0*)([0-9]+$)/, function (match, p1, p2) {
+//     var up = parseInt(p2) + 1;
+//     return up.toString().length > p2.length ? p1.slice(0, -1) + up : p1 + up;
+//   });
+// }
+// //best
+// let incrementString = (str) =>
+//   str.replace(/([0-8]|\d?9+)?$/, (e) => (e ? +e + 1 : 1));
+// //best
+//   function incrementString(input) {
+//     return input.replace(/([0-8]?)(9*)$/, function(s, d, ns) {
+//         return +d + 1 + ns.replace(/9/g, '0');
+//       });
+//   }
