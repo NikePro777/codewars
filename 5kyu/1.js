@@ -10,15 +10,22 @@
 // RomanNumerals.fromRoman('M'); // should return 1000
 let RomanNumerals = {
   help: { I: 1, IV: 4, V: 5, X: 10, L: 50, C: 100, D: 500, M: 1000 },
-  toRoman: function (a) {
-    return a;
-  },
+  toRoman: function (numb) {},
   fromRoman: function (a) {
-    let arr = [];
+    let arr;
+    function translete(array) {
+      return array.split("");
+    }
+
     if (a.indexOf("IV") === -1) {
-      arr = a.split("");
+      arr = arr || [];
+      arr.push(translete(a));
+      arr = arr.flat();
     } else {
-      a.slice;
+      arr = [];
+      arr.push(a.slice(a.indexOf("IV"), a.indexOf("IV") + 2));
+      let newArr = a.slice(0, a.indexOf("IV")) + a.slice(a.indexOf("IV") + 2);
+      arr = arr.concat(translete(newArr));
     }
     let count = 0;
     for (let char of arr) {
@@ -27,4 +34,4 @@ let RomanNumerals = {
     return count;
   },
 };
-console.log(RomanNumerals.fromRoman("IV"));
+console.log(RomanNumerals.toRoman(3990));
