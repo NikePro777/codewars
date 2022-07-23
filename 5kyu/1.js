@@ -10,7 +10,92 @@
 // RomanNumerals.fromRoman('M'); // should return 1000
 let RomanNumerals = {
   help: { I: 1, IV: 4, V: 5, X: 10, L: 50, C: 100, D: 500, M: 1000 },
-  toRoman: function (numb) {},
+  toRoman: function (numb) {
+    let answer = { numb: numb, answer: "" };
+    while (answer.numb > 0) {
+      answer.numb >= 900
+        ? divide1000(answer.numb)
+        : answer.numb >= 400
+        ? divide500(answer.numb)
+        : answer.numb >= 90
+        ? divide100(answer.numb)
+        : answer.numb >= 40
+        ? divide50(answer.numb)
+        : answer.numb >= 9
+        ? divide10(answer.numb)
+        : answer.numb >= 4
+        ? divide5(answer.numb)
+        : divide(answer.numb);
+      console.log(answer.numb);
+    }
+    function divide1000(numb) {
+      numb / 1000 >= 1
+        ? ((answer.numb = answer.numb - 1000),
+          (answer.answer = answer.answer + "M"))
+        : numb / 900 >= 1
+        ? ((answer.numb = answer.numb - 900),
+          (answer.answer = answer.answer + "CM"))
+        : {};
+    }
+
+    function divide500(numb) {
+      if (numb / 500 >= 1) {
+        (answer.numb = answer.numb - 500),
+          (answer.answer = answer.answer + "L");
+      } else {
+        numb / 400 >= 1
+          ? ((answer.numb = answer.numb - 400),
+            (answer.answer = answer.answer + "CL"))
+          : {};
+      }
+    }
+    function divide100(numb) {
+      if (numb / 100 >= 1) {
+        (answer.numb = answer.numb - 100),
+          (answer.answer = answer.answer + "C");
+      } else {
+        numb / 90 >= 1
+          ? ((answer.numb = answer.numb - 90),
+            (answer.answer = answer.answer + "XC"))
+          : {};
+      }
+    }
+    function divide50(numb) {
+      if (numb / 50 >= 1) {
+        (answer.numb = answer.numb - 50), (answer.answer = answer.answer + "L");
+      } else {
+        numb / 40 >= 1
+          ? ((answer.numb = answer.numb - 40),
+            (answer.answer = answer.answer + "XL"))
+          : {};
+      }
+    }
+    function divide10(numb) {
+      if (numb / 10 >= 1) {
+        (answer.numb = answer.numb - 10), (answer.answer = answer.answer + "X");
+      } else {
+        numb / 9 >= 1
+          ? ((answer.numb = answer.numb - 9),
+            (answer.answer = answer.answer + "IX"))
+          : {};
+      }
+    }
+    function divide5(numb) {
+      if (numb / 5 >= 1) {
+        (answer.numb = answer.numb - 5), (answer.answer = answer.answer + "V");
+      } else {
+        numb / 4 >= 1
+          ? ((answer.numb = answer.numb - 4),
+            (answer.answer = answer.answer + "IV"))
+          : {};
+      }
+    }
+    function divide(numb) {
+      answer.answer = answer.answer + "I".repeat(numb);
+      answer.numb = answer.numb - numb;
+    }
+    return answer.answer;
+  },
   fromRoman: function (a) {
     let arr;
     function translete(array) {
@@ -34,4 +119,4 @@ let RomanNumerals = {
     return count;
   },
 };
-console.log(RomanNumerals.toRoman(3990));
+console.log(RomanNumerals.fromRoman("MMCCXCI"));
