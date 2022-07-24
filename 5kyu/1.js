@@ -9,8 +9,20 @@
 // RomanNumerals.toRoman(1000); // should return 'M'
 // RomanNumerals.fromRoman('M'); // should return 1000
 let RomanNumerals = {
-  help: { I: 1, IV: 4, V: 5, X: 10, L: 50, C: 100, D: 500, M: 1000 },
+  help: {
+    I: 1,
+    IV: 4,
+    V: 5,
+    X: 10,
+    L: 50,
+    C: 100,
+    D: 500,
+    M: 1000,
+    IX: 9,
+    CM: 900,
+  },
   toRoman: function (numb) {
+    console.log("toRoman: " + numb);
     let answer = { numb: numb, answer: "" };
     while (answer.numb > 0) {
       answer.numb >= 900
@@ -26,7 +38,6 @@ let RomanNumerals = {
         : answer.numb >= 4
         ? divide5(answer.numb)
         : divide(answer.numb);
-      console.log(answer.numb);
     }
     function divide1000(numb) {
       numb / 1000 >= 1
@@ -41,11 +52,11 @@ let RomanNumerals = {
     function divide500(numb) {
       if (numb / 500 >= 1) {
         (answer.numb = answer.numb - 500),
-          (answer.answer = answer.answer + "L");
+          (answer.answer = answer.answer + "D");
       } else {
         numb / 400 >= 1
           ? ((answer.numb = answer.numb - 400),
-            (answer.answer = answer.answer + "CL"))
+            (answer.answer = answer.answer + "CD"))
           : {};
       }
     }
@@ -101,16 +112,49 @@ let RomanNumerals = {
     function translete(array) {
       return array.split("");
     }
-
-    if (a.indexOf("IV") === -1) {
+    if (
+      a.indexOf("IV") === -1 &&
+      a.indexOf("IX") === -1 &&
+      a.indexOf("XС") === -1 &&
+      a.indexOf("CM") === -1 &&
+      a.indexOf("CD") === -1
+    ) {
       arr = arr || [];
       arr.push(translete(a));
       arr = arr.flat();
     } else {
-      arr = [];
-      arr.push(a.slice(a.indexOf("IV"), a.indexOf("IV") + 2));
-      let newArr = a.slice(0, a.indexOf("IV")) + a.slice(a.indexOf("IV") + 2);
-      arr = arr.concat(translete(newArr));
+      arr = arr || [];
+
+      if (a.indexOf("IV") !== -1) {
+        arr.push(a.slice(a.indexOf("IV"), a.indexOf("IV") + 2));
+        let newArr = a.slice(0, a.indexOf("IV")) + a.slice(a.indexOf("IV") + 2);
+        newArr ? (arr = arr.concat(translete(newArr))) : {};
+      }
+      if (a.indexOf("IX") !== -1) {
+        arr.push(a.slice(a.indexOf("IX"), a.indexOf("IX") + 2));
+        let newArr = a.slice(0, a.indexOf("IX")) + a.slice(a.indexOf("IX") + 2);
+        newArr ? (arr = arr.concat(translete(newArr))) : {};
+        console.log(arr);
+        console.log(newArr);
+      }
+      if (a.indexOf("XC") !== -1) {
+        arr.push(a.slice(a.indexOf("XC"), a.indexOf("XC") + 2));
+        let newArr = a.slice(0, a.indexOf("XC")) + a.slice(a.indexOf("XC") + 2);
+        newArr ? (arr = arr.concat(translete(newArr))) : {};
+      }
+      if (a.indexOf("CM") !== -1) {
+        console.log("тут");
+        arr.push(a.slice(a.indexOf("CM"), a.indexOf("CM") + 2));
+        let newArr = a.slice(0, a.indexOf("CM")) + a.slice(a.indexOf("CM") + 2);
+        newArr ? (arr = arr.concat(translete(newArr))) : {};
+        console.log(arr);
+        console.log(newArr);
+      }
+      if (a.indexOf("CD") !== -1) {
+        arr.push(a.slice(a.indexOf("CD"), a.indexOf("CD") + 2));
+        let newArr = a.slice(0, a.indexOf("CD")) + a.slice(a.indexOf("CD") + 2);
+        newArr ? (arr = arr.concat(translete(newArr))) : {};
+      }
     }
     let count = 0;
     for (let char of arr) {
@@ -119,4 +163,4 @@ let RomanNumerals = {
     return count;
   },
 };
-console.log(RomanNumerals.fromRoman("MMCCXCI"));
+console.log(RomanNumerals.fromRoman("CMLXXXIX"));
