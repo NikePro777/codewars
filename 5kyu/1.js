@@ -109,58 +109,56 @@ let RomanNumerals = {
   },
   fromRoman: function (a) {
     let arr;
+    count = 0;
     function translete(array) {
       return array.split("");
     }
+    console.log(a.indexOf("XC"));
     if (
       a.indexOf("IV") === -1 &&
       a.indexOf("IX") === -1 &&
-      a.indexOf("XС") === -1 &&
+      a.indexOf("XC") === -1 &&
       a.indexOf("CM") === -1 &&
-      a.indexOf("CD") === -1
+      a.indexOf("CD") === -1 &&
+      a.indexOf("XL") === -1
     ) {
+      console.log("sdfsadsaf");
       arr = arr || [];
       arr.push(translete(a));
       arr = arr.flat();
     } else {
-      arr = arr || [];
-
+      console.log(a);
       if (a.indexOf("IV") !== -1) {
-        arr.push(a.slice(a.indexOf("IV"), a.indexOf("IV") + 2));
-        let newArr = a.slice(0, a.indexOf("IV")) + a.slice(a.indexOf("IV") + 2);
-        newArr ? (arr = arr.concat(translete(newArr))) : {};
+        a = a.slice(0, a.indexOf("IV")) + a.slice(a.indexOf("IV") + 2);
+        count += 4;
       }
       if (a.indexOf("IX") !== -1) {
-        arr.push(a.slice(a.indexOf("IX"), a.indexOf("IX") + 2));
-        let newArr = a.slice(0, a.indexOf("IX")) + a.slice(a.indexOf("IX") + 2);
-        newArr ? (arr = arr.concat(translete(newArr))) : {};
-        console.log(arr);
-        console.log(newArr);
+        a = a.slice(0, a.indexOf("IX")) + a.slice(a.indexOf("IX") + 2);
+        count += 9;
       }
       if (a.indexOf("XC") !== -1) {
-        arr.push(a.slice(a.indexOf("XC"), a.indexOf("XC") + 2));
-        let newArr = a.slice(0, a.indexOf("XC")) + a.slice(a.indexOf("XC") + 2);
-        newArr ? (arr = arr.concat(translete(newArr))) : {};
+        a = a.slice(0, a.indexOf("XC")) + a.slice(a.indexOf("XC") + 2);
+        count += 90;
+      }
+      if (a.indexOf("XL") !== -1) {
+        console.log("nen");
+        a = a.slice(0, a.indexOf("XL")) + a.slice(a.indexOf("XL") + 2);
+        count += 40;
       }
       if (a.indexOf("CM") !== -1) {
-        console.log("тут");
-        arr.push(a.slice(a.indexOf("CM"), a.indexOf("CM") + 2));
-        let newArr = a.slice(0, a.indexOf("CM")) + a.slice(a.indexOf("CM") + 2);
-        newArr ? (arr = arr.concat(translete(newArr))) : {};
-        console.log(arr);
-        console.log(newArr);
+        a = a.slice(0, a.indexOf("CM")) + a.slice(a.indexOf("CM") + 2);
+        count += 900;
       }
       if (a.indexOf("CD") !== -1) {
-        arr.push(a.slice(a.indexOf("CD"), a.indexOf("CD") + 2));
-        let newArr = a.slice(0, a.indexOf("CD")) + a.slice(a.indexOf("CD") + 2);
-        newArr ? (arr = arr.concat(translete(newArr))) : {};
+        a = a.slice(0, a.indexOf("CD")) + a.slice(a.indexOf("CD") + 2);
+        count += 400;
       }
     }
-    let count = 0;
-    for (let char of arr) {
+    console.log(arr);
+    for (let char of a) {
       count += RomanNumerals.help[char];
     }
     return count;
   },
 };
-console.log(RomanNumerals.fromRoman("CMLXXXIX"));
+// best practic
